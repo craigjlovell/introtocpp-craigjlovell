@@ -1,10 +1,11 @@
 #include "ConsoleTicTacToeApp.h"
 #include "TicTacToeGame.h"
-#include "raylib.h"
 #include <iostream>
 #include <conio.h>
 #include <chrono>
 #include <thread>
+#include <raylib.h>
+
 
 ConsoleTicTacToe::ConsoleTicTacToe()
 {
@@ -20,58 +21,80 @@ void ConsoleTicTacToe::DrawBoard()
 {
     system("CLS");
 
-    for (int i = 0; i < 3; i++)
+    for (int row = 0; row < 3; row++)
     {
-        for (int j = 0; j < 3; j++)
+        for (int col = 0; col < 3; col++)
         {
-            std::cout << "|" << game->DrawSquare(i, j, m_Location) << "|";
+            std::cout << "|" << game->DrawPlayer(row, col, m_Location) << "|";
         }
         std::cout << std::endl;
     }
 }
 
-void ConsoleTicTacToe::PlayerMove()
+int ConsoleTicTacToe::GetPressedKey()
 {
-    int button;
-    button = _getch();
-    
-    switch (button)
+    int pressedKey = -1;
+    if (_kbhit())
     {
-    case 80:
-        m_Location[0]++;
-        break;
-    case 72:
+        int c = _getch();
+        if (c == 224)
+        {
+            // this allows us to get special key character presses
+            pressedKey = _getch();
+        }
+        else
+        {
+            pressedKey = c;
+        }
+    }
+    return pressedKey;
+}
+
+int ConsoleTicTacToe::MovePlayer()
+{
+    Borader();
+
+    int key = GetPressedKey();
+
+    const int LEFT = 75;
+    const int RIGHT = 77;
+    const int UP = 72;
+    const int DOWN = 80;
+    const int ENTER = 13;
+
+    if (key == UP)
+    {
         m_Location[0]--;
-        break;
-    case 77:
-        m_Location[1]++;
-        break;
-    case 75:
+    }
+    if (key == DOWN)
+    {
+        m_Location[0]++;
+    }
+    if (key == LEFT)
+    {
         m_Location[1]--;
-        break;
-    case 13:
-        
-        PlacePlayer();        
-        break;
+    }
+    if (key == RIGHT)
+    {
+        m_Location[1]++;
+    }
+    if (key == ENTER)
+    {
+        PlacePlayer();
     }
 
-    if (m_Location[0] < 0)
-    {
-        m_Location[0] = 0;
-    }
-    else if (m_Location[0] > 2)
-    {
-        m_Location[0] = 2;
-    }
+    return 0;
+}
 
-    if (m_Location[1] < 0)
-    {
-        m_Location[1] = 0;
-    }
-    else if (m_Location[1] > 2)
-    {
-        m_Location[1] = 2;
-    }
+void ConsoleTicTacToe::Borader()
+{
+
+    if (m_Location[0] < 0)  m_Location[0] = 0;
+    else if (m_Location[0] > 2) m_Location[0] = 2;
+
+    if (m_Location[1] < 0) m_Location[1] = 0;
+    else if (m_Location[1] > 2) m_Location[1] = 2;
+
 }
 
 void ConsoleTicTacToe::PlacePlayer()
@@ -85,6 +108,11 @@ void ConsoleTicTacToe::PlacePlayer()
         }
     }
 }
+
+//char ConsoleTicTacToe::GetBoardCharacter(int row, int col, int location[2])
+//{
+//
+//}
 
 void ConsoleTicTacToe::RunMenuState()
 {
@@ -108,43 +136,14 @@ void ConsoleTicTacToe::RunMenuState()
 
 
 void ConsoleTicTacToe::RunGameState()
-{   
-    while (!CheckWinState())
-    {
-        DrawBoard();
-        CheckWinState();
-        PlayerMove();       
-    }
-}
-
-bool ConsoleTicTacToe::CheckWinState()
 {
-    if (game->CheckWinner(1))
-    {
-        m_GameState = GameState::WIN;
-        return true;
-    }
-    else if (game->CheckWinner(2))
-    {        
-        m_GameState = GameState::WIN;
-        return true;
-    }
-    return false;
+    DrawBoard();
+    MovePlayer();
 }
 
 void ConsoleTicTacToe::RunWinState()
 {
     std::cout << "WINSCREEN" << std::endl;
-    DrawBoard();
-
-    if (game->CheckWinner(1))
-    {
-        std::cout << 1 << " wins!" << std::endl;
-    }
-    else if (game->CheckWinner(2))
-    {
-        std::cout << 2 << " wins!" << std::endl;
-    }
 }
 
 void ConsoleTicTacToe::Run()
@@ -169,7 +168,7 @@ void ConsoleTicTacToe::Run()
 
 void ConsoleTicTacToe::Load()
 {
-    
+
 }
 
 void ConsoleTicTacToe::Unload()

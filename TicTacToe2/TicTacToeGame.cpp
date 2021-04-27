@@ -1,4 +1,5 @@
 #include "TicTacToeGame.h"
+#include <raylib.h>
 
 TicTacToeGame::TicTacToeGame()
 {
@@ -31,16 +32,15 @@ bool TicTacToeGame::IsValidMove(int x, int y)
 	return board[x][y] == 0;
 }
 
-char TicTacToeGame::DrawSquare(int x, int y, int location[2])
+char TicTacToeGame::DrawPlayer(int row, int col, int location[2])
 {
 	char square = ' ';
 
-	if (location[0] == x && location[1] == y)
-	{
-		return '+';
-	}
+	if (location[0] == row && location[1] == col)
+		return '#';
 
-	switch (board[x][y])
+
+	switch (board[row][col])
 	{
 	case 1:
 		square = 'x';
@@ -52,6 +52,8 @@ char TicTacToeGame::DrawSquare(int x, int y, int location[2])
 
 	return square;
 }
+
+
 
 bool TicTacToeGame::CheckWinner(int player)
 {

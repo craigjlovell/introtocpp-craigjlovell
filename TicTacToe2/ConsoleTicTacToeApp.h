@@ -25,13 +25,14 @@ public:
 	void RunMenuState();
 	void RunGameState();
 	void RunWinState();
-	bool CheckWinState();
 
-	void DrawBoard();
-	void PlayerMove();
+	void Borader();
+	int GetPressedKey();
+	int MovePlayer();
+	char GetBoardCharacter(int row, int col, int location[2]);
+
 	void PlacePlayer();
-
-	bool checkboard();
+	void DrawBoard();
 
 protected:
 
@@ -42,12 +43,7 @@ private:
 
 	TicTacToeGame* game = nullptr;
 
-
-
-
-
-
-	int m_Location[2] = {0, 0};
+	int m_Location[2] = { 0, 0 };
 	int m_player = 1;
 
 };
