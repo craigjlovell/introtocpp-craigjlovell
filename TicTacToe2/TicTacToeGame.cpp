@@ -36,7 +36,7 @@ char TicTacToeGame::DrawPlayer(int row, int col, int location[2])
 {
 	char square = ' ';
 
-	if (location[0] == row && location[1] == col)
+	if (location[0] == row && location[1] == col && board[row][col] == 0)
 		return '#';
 
 

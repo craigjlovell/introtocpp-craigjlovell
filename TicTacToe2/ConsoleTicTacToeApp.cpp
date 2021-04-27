@@ -86,7 +86,7 @@ int ConsoleTicTacToe::MovePlayer()
     return 0;
 }
 
-void ConsoleTicTacToe::Borader()
+void ConsoleTicTacToe::Borader()//change to  verb
 {
 
     if (m_Location[0] < 0)  m_Location[0] = 0;
@@ -109,11 +109,6 @@ void ConsoleTicTacToe::PlacePlayer()
     }
 }
 
-//char ConsoleTicTacToe::GetBoardCharacter(int row, int col, int location[2])
-//{
-//
-//}
-
 void ConsoleTicTacToe::RunMenuState()
 {
 
@@ -132,8 +127,6 @@ void ConsoleTicTacToe::RunMenuState()
         m_ShouldQuit = true;
     }
 }
-
-
 
 void ConsoleTicTacToe::RunGameState()
 {
