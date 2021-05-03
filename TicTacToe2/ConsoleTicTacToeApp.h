@@ -25,11 +25,11 @@ public:
 	void RunMenuState();
 	void RunGameState();
 	void RunWinState();
+	bool CheckWinState();
 
 	void Borader();
 	int GetPressedKey();
 	int MovePlayer();
-	char GetBoardCharacter(int row, int col, int location[2]);
 
 	void PlacePlayer();
 	void DrawBoard();

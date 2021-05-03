@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{090289da-0c9e-4f35-9982-92459e2acbe5}</ProjectGuid>
-    <RootNamespace>AIE_13_TicTacToeCheckWinner</RootNamespace>
+    <ProjectGuid>{923c2d32-94c3-4946-af9d-a0476a1eea0c}</ProjectGuid>
+    <RootNamespace>AIE_01_FileIO_Numbers</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

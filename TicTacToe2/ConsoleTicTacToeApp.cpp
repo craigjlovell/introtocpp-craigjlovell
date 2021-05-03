@@ -21,14 +21,22 @@ void ConsoleTicTacToe::DrawBoard()
 {
     system("CLS");
 
-    for (int row = 0; row < 3; row++)
-    {
-        for (int col = 0; col < 3; col++)
-        {
-            std::cout << "|" << game->DrawPlayer(row, col, m_Location) << "|";
-        }
-        std::cout << std::endl;
-    }
+    //for (int row = 0; row < 3; row++)
+    //{
+    //    for (int col = 0; col < 3; col++)
+    //    {
+    //        std::cout << "|" << game->DrawPlayer(row, col, m_Location) << "|";
+    //    }
+    //    std::cout << std::endl;
+    //}
+
+    std::cout << "-------" << std::endl;
+    std::cout << "|" << game->DrawPlayer(0, 0, m_Location) << "|" << game->DrawPlayer(0, 1, m_Location) << "|" << game->DrawPlayer(0, 2, m_Location) << "|" << std::endl;
+    std::cout << "-------" << std::endl;
+    std::cout << "|" << game->DrawPlayer(1, 0, m_Location) << "|" << game->DrawPlayer(1, 1, m_Location) << "|" << game->DrawPlayer(1, 2, m_Location) << "|" << std::endl;
+    std::cout << "-------" << std::endl;
+    std::cout << "|" << game->DrawPlayer(2, 0, m_Location) << "|" << game->DrawPlayer(2, 1, m_Location) << "|" << game->DrawPlayer(2, 2, m_Location) << "|" << std::endl;
+    std::cout << "-------" << std::endl;
 }
 
 int ConsoleTicTacToe::GetPressedKey()
@@ -109,6 +117,7 @@ void ConsoleTicTacToe::PlacePlayer()
     }
 }
 
+
 void ConsoleTicTacToe::RunMenuState()
 {
 
@@ -132,11 +141,37 @@ void ConsoleTicTacToe::RunGameState()
 {
     DrawBoard();
     MovePlayer();
+    CheckWinState();
+}
+
+bool ConsoleTicTacToe::CheckWinState()
+{
+    if (game->CheckWinner(1))
+    {
+        m_GameState = GameState::WIN;
+        return true;
+    }
+    else if (game->CheckWinner(2))
+    {
+        m_GameState = GameState::WIN;
+        return true;
+    }
+    return false;
 }
 
 void ConsoleTicTacToe::RunWinState()
 {
     std::cout << "WINSCREEN" << std::endl;
+    DrawBoard();
+
+    if (game->CheckWinner(1))
+    {
+        std::cout << "Player X wins!" << std::endl;
+    }
+    else if (game->CheckWinner(2))
+    {
+        std::cout << "sPlayer O wins!" << std::endl;
+    }
 }
 
 void ConsoleTicTacToe::Run()
