@@ -49,7 +49,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AIE_04_FileIO_Struct", "AIE
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AIE_05_FileIO_Struct2", "AIE_05_FileIO_Struct2\AIE_05_FileIO_Struct2.vcxproj", "{A6DA4950-96C2-482C-84C5-140FFE858C95}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IntroCPP_BinaryFileIO_NPCData", "..\..\..\Downloads\Debugging_Assessment_IntroCPP\IntroCPP_BinaryFileIO_NPCData\IntroCPP_BinaryFileIO_NPCData.vcxproj", "{7544D2EA-300C-4AEB-AA7F-438762AE001F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IntroCPP_BinaryFileIO_NPCData", "IntroCPP_BinaryFileIO_NPCData\IntroCPP_BinaryFileIO_NPCData.vcxproj", "{7544D2EA-300C-4AEB-AA7F-438762AE001F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
