@@ -3,8 +3,7 @@
 #include <iostream>
 #include <conio.h>
 #include <chrono>
-#include <thread>
-#include <raylib.h>
+#include <windows.h>
 
 
 ConsoleTicTacToe::ConsoleTicTacToe()
@@ -19,9 +18,7 @@ ConsoleTicTacToe::~ConsoleTicTacToe()
 
 void ConsoleTicTacToe::DrawBoard()
 {
-    system("CLS");
-
-    //for (int row = 0; row < 3; row++)
+    //for (int row = 0; row < 3; row++) // old code does same as below but in a loop
     //{
     //    for (int col = 0; col < 3; col++)
     //    {
@@ -30,13 +27,15 @@ void ConsoleTicTacToe::DrawBoard()
     //    std::cout << std::endl;
     //}
 
-    std::cout << "-------" << std::endl;
-    std::cout << "|" << game->DrawPlayer(0, 0, m_Location) << "|" << game->DrawPlayer(0, 1, m_Location) << "|" << game->DrawPlayer(0, 2, m_Location) << "|" << std::endl;
-    std::cout << "-------" << std::endl;
-    std::cout << "|" << game->DrawPlayer(1, 0, m_Location) << "|" << game->DrawPlayer(1, 1, m_Location) << "|" << game->DrawPlayer(1, 2, m_Location) << "|" << std::endl;
-    std::cout << "-------" << std::endl;
-    std::cout << "|" << game->DrawPlayer(2, 0, m_Location) << "|" << game->DrawPlayer(2, 1, m_Location) << "|" << game->DrawPlayer(2, 2, m_Location) << "|" << std::endl;
-    std::cout << "-------" << std::endl;
+    std::cout << " " << "Tic Tac Tow" << std::endl;
+    std::cout << std::endl;
+    std::cout << "  " << "-------" << std::endl;
+    std::cout << "  " << "|" << game->DrawPlayer(0, 0, m_Location) << "|" << game->DrawPlayer(0, 1, m_Location) << "|" << game->DrawPlayer(0, 2, m_Location) << "|" << std::endl;
+    std::cout << "  " << "-------" << std::endl;
+    std::cout << "  " << "|" << game->DrawPlayer(1, 0, m_Location) << "|" << game->DrawPlayer(1, 1, m_Location) << "|" << game->DrawPlayer(1, 2, m_Location) << "|" << std::endl;
+    std::cout << "  " << "-------" << std::endl;
+    std::cout << "  " << "|" << game->DrawPlayer(2, 0, m_Location) << "|" << game->DrawPlayer(2, 1, m_Location) << "|" << game->DrawPlayer(2, 2, m_Location) << "|" << std::endl;
+    std::cout << "  " << "-------" << std::endl;
 }
 
 int ConsoleTicTacToe::GetPressedKey()
@@ -68,7 +67,7 @@ int ConsoleTicTacToe::MovePlayer()
     const int RIGHT = 77;
     const int UP = 72;
     const int DOWN = 80;
-    const int ENTER = 13;
+    const int SPACE = 32;
 
     if (key == UP)
     {
@@ -86,9 +85,10 @@ int ConsoleTicTacToe::MovePlayer()
     {
         m_Location[1]++;
     }
-    if (key == ENTER)
+    if (key == SPACE)
     {
         PlacePlayer();
+        
     }
 
     return 0;
@@ -110,6 +110,7 @@ void ConsoleTicTacToe::PlacePlayer()
     if (game->SetBoard(m_Location[0], m_Location[1], m_player))
     {
         m_player++;
+        draw++;
         if (m_player > 2)
         {
             m_player = 1;
@@ -117,10 +118,9 @@ void ConsoleTicTacToe::PlacePlayer()
     }
 }
 
-
 void ConsoleTicTacToe::RunMenuState()
 {
-
+    
     std::cout << "1: Play Game" << std::endl;
     std::cout << "2: Exit Game" << std::endl;
 
@@ -156,22 +156,42 @@ bool ConsoleTicTacToe::CheckWinState()
         m_GameState = GameState::WIN;
         return true;
     }
+    else if (draw == 9)
+    {
+        m_GameState = GameState::WIN;
+        return true;
+    }
     return false;
 }
 
 void ConsoleTicTacToe::RunWinState()
 {
-    std::cout << "WINSCREEN" << std::endl;
+    
     DrawBoard();
-
+    std::cout << "WINSCREEN" << std::endl;
     if (game->CheckWinner(1))
     {
         std::cout << "Player X wins!" << std::endl;
     }
     else if (game->CheckWinner(2))
     {
-        std::cout << "sPlayer O wins!" << std::endl;
+        std::cout << "Player O wins!" << std::endl;
     }
+    else if (draw == 9)
+    {
+        std::cout << "Draw" << std::endl;
+    }
+    
+
+    int key = GetPressedKey();
+    const int ENTER = 13;
+
+    if (key == ENTER)
+    {
+        game->Reset();
+        m_GameState = GameState::MENU;
+    }
+
 }
 
 void ConsoleTicTacToe::Run()
@@ -179,7 +199,7 @@ void ConsoleTicTacToe::Run()
     while (!m_ShouldQuit)
     {
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        Sleep(100);
         system("cls");
 
         if (m_GameState == GameState::MENU)
@@ -213,4 +233,3 @@ void ConsoleTicTacToe::Draw()
 {
 
 }
-

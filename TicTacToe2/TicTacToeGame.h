@@ -14,6 +14,8 @@ public:
 	char DrawPlayer(int row, int col, int location[2]);
 	bool IsValidMove(int x, int y);
 	bool CheckWinner(int player);
+	bool IsGameOver(int board[3][3]);
+	void Reset();
 
 protected:
 private:

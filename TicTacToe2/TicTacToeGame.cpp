@@ -53,7 +53,16 @@ char TicTacToeGame::DrawPlayer(int row, int col, int location[2])
 	return square;
 }
 
-
+void TicTacToeGame::Reset()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			board[i][j] = 0;
+		}
+	}
+}
 
 bool TicTacToeGame::CheckWinner(int player)
 {
@@ -117,3 +126,4 @@ bool TicTacToeGame::CheckWinner(int player)
 	}
 	return false;
 }
+

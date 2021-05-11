@@ -11,6 +11,9 @@ enum class GameState
 class ConsoleTicTacToe
 {
 public:
+
+	int draw = 0;
+	
 	ConsoleTicTacToe();
 	~ConsoleTicTacToe();
 
@@ -45,5 +48,5 @@ private:
 
 	int m_Location[2] = { 0, 0 };
 	int m_player = 1;
-
+	
 };

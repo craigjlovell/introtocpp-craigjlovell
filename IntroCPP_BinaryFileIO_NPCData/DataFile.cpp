@@ -54,7 +54,8 @@ DataFile::Record* DataFile::GetRecord(int index)
 				break;
 			}
 
-			infile.seekg(imageSize + nameSize + ageSize, std::ios_base::cur);
+			int sizeInfo = imageSize + nameSize + ageSize;
+			infile.seekg(sizeInfo, std::ios_base::cur);
 		}
 	}
 
