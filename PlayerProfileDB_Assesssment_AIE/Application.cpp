@@ -86,6 +86,8 @@ void Application::Run()
 			{
 				system("CLS");
 				std::cout << "name already in Record" << std::endl;
+			
+				std::cout << "name fsogfhwiguhewiogewognwe in Record" << std::endl;
 			}
 			else
 			{				
