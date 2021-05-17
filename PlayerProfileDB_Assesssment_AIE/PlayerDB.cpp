@@ -15,7 +15,6 @@ PlayerDB::~PlayerDB()
 
 }
 
-//void PlayerDB::Add(char name[32], int score)
 void PlayerDB::Add(const char* name, int score)
 {
 	Player player(name, score);
@@ -41,15 +40,35 @@ void PlayerDB::DisplayAllPlayers()
 	}
 }
 
-void PlayerDB::Remove(Player)
+bool PlayerDB::Remove(Player* player)
 {
+	if (player == nullptr)
+		return false;
+
+	bool removedPlayer = false;
+
+	Player* temp = new Player[m_count];
+
+	int count = 0;
+
 	for (int i = 0; i < m_count; i++)
 	{
-		if (m_record[i] == Player().name[32])
+		if (player != &m_record[i])
 		{
-
+			temp[count] = m_record[i];
+			count += 1;
+		}
+		else
+		{
+			removedPlayer = true;
 		}
 	}
+
+	m_count -= 1;
+	delete[] m_record;
+	m_record = temp;
+
+	return removedPlayer;
 }
 
 void PlayerDB::Clear()
@@ -72,12 +91,38 @@ Player* PlayerDB::GetByName(const char* name)
 	return nullptr;
 }
 
-void PlayerDB::GetByScore()
+Player* PlayerDB::BinarySearch(const char* name)
 {
+	// TODO: write your code here
+	int left = 0;
+	int right = m_count - 1;
+	int middle = 0;
 
+
+	while (left <= right)
+	{
+		middle = floor(((left + right) / 2));
+
+		int cmpResult = strcmp(m_record[middle].name, name);
+
+
+		if (cmpResult == 0)
+		{
+			return &m_record[middle];
+		}
+		else if (cmpResult > 0)
+		{
+			right = middle - 1;
+		}
+		else
+		{
+			left = middle + 1;
+		}
+	}
+	return nullptr;
 }
 
-void PlayerDB::GetHighScore()
+void PlayerDB::GetByScore()
 {
 
 }
@@ -87,9 +132,20 @@ void PlayerDB::UpdatePlayer(Player)
 
 }
 
-void PlayerDB::Sort()
+void PlayerDB::Sort(const char* name)
 {
-
+	int result;
+	for (int names = 0; names < m_count - 1; ++names)
+	{
+		for (int j = 0; j < m_count - 1 - names; ++j)
+		{            
+			result = strcmp(m_record[j].name, m_record[j + 1].name);              
+			if (result > 0)
+			{
+				std::swap(m_record[j].name, m_record[j + 1].name);
+			}
+		}	 	
+	}
 }
 
 void PlayerDB::Count()

@@ -10,14 +10,14 @@ public:
 	~PlayerDB();
 
 	void Add(const char* name, int score);
-	void Remove(Player);
+	bool Remove(Player* player);
 	void DisplayAllPlayers();
 	void Clear();
 	Player* GetByName(const char* name);
 	void GetByScore();
-	void GetHighScore();
+	Player* BinarySearch(const char* name);
 	void UpdatePlayer(Player);
-	void Sort();
+	void Sort(const char* name);
 	void Count();
 	void Save(const char* filename);
 	void Load(const char* filename);
