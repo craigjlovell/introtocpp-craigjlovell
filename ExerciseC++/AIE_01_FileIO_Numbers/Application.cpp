@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
+#include <time.h>
 
 Application::Application()
 {

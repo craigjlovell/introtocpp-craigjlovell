@@ -16,7 +16,7 @@ public:
 	Player* GetAt(int index);
 	Player* GetByName(const char* name);
 	Player* BinarySearch(const char* name);
-	void Sort(const char* name);
+	void Sort();
 	int Count();
 	void Save(const char* filename);
 	void Load(const char* filename);

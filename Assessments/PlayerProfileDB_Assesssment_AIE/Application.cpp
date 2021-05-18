@@ -15,122 +15,17 @@ Application::~Application()
 void Application::Run()
 {
 	const char* filename = "database.dat";
+
 	db.Load(filename);
-	PrintPlayers();
-
-	bool command = true;
-	while (command)
+	PrintCommands();
+	while (m_shouldExit == false)
 	{
-		std::cout << "Enter your command" << std::endl;
-		std::string input;
-		std::cin >> input;
-
-		if (input == "clear")
-		{
-			db.Clear();
-			system("CLS");
-		}
-
-		if (input == "remove")
-		{
-			std::string removename;
-			std::cout << "Enter name to remove from reports: ";
-			std::cin >> removename;
-
-			bool removedSuccess = true;
-			while (removedSuccess)
-				removedSuccess = db.Remove(db.GetByName(removename.c_str()));
-
-			system("CLS");
-			PrintPlayers();
-		}
-
-		if (input == "check")
-		{			
-
-			system("CLS");
-			std::string findname;
-			std::cout << "Enter name to pull up info: ";
-			std::cin >> findname;
-
-			Player* p = db.BinarySearch(findname.c_str());
-			if (p != nullptr)
-			{
-				std::cout << p->name << ":" << p->score << std::endl;
-			}
-			else
-			{
-				system("CLS");
-				std::cout << "No info was found under " << findname.c_str() << std::endl;
-			}
-		}
-
-		if (input == "save")
-		{
-			db.Save(filename);
-			system("CLS");
-		}
-
-		if (input == "add")
-		{
-			int score;
-			std::string name;
-
-			std::cout << "Enter a name: ";
-			std::cin >> name;
-			std::cout << "Enter a score: ";
-			std::cin >> score;
-			//db.Add(name.c_str(), score);
-
-			Player* p = db.BinarySearch(name.c_str());
-			if(p != nullptr)
-			{
-				system("CLS");
-				std::cout << "name already in Record" << std::endl;
-			
-				std::cout << "name fsogfhwiguhewiogewognwe in Record" << std::endl;
-			}
-			else
-			{				
-				db.Add(name.c_str(), score);
-			}
-
-			PrintPlayers();
-		}
-
-		if (input == "list")
-		{
-			system("CLS");
-			PrintPlayers();
-		}
-
-		if (input == "sort")
-		{
-			db.Sort(Player().name);
-			system("CLS");
-			PrintPlayers();
-		}
-
-		if (input == "exit")
-		{
-			command = false;
-		}
+		InPutCommands(filename);
 	}
 	
-	//Player* p0 = db.GetByName("Hello");
-	//if (p0 != nullptr)
-	//	std::cout << p0->name << "\t\t" << p0->score << std::endl;
-	//
-	//
-	//Player* p1 = db.GetByName("World");
-	//if (p1 != nullptr)
-	//	std::cout << p1->name << "\t\t" << p1->score << std::endl;
-	//
-
 	PrintPlayers();
 
-
-	db.Save(filename); // Step 1
+	db.Save(filename);
 }
 
 void Application::PrintPlayers()
@@ -140,4 +35,174 @@ void Application::PrintPlayers()
 		Player* player = db.GetAt(i);
 		std::cout << player->name << ": " << player->score << std::endl;
 	}
+}
+
+void Application::PrintCommands()
+{
+	std::cout << "------------------------------------" << std::endl;
+	std::cout << "           (Add Name Score)         " << std::endl;
+	std::cout << "        Add a pleyer to records     " << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	std::cout << "            (Remove Name)           " << std::endl;
+	std::cout << "     Remove a pleyer from records   " << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	std::cout << "               (Check)              " << std::endl;
+	std::cout << "  Looks through records for a name  " << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	std::cout << "               (Clear)              " << std::endl;
+	std::cout << "   Clears all records and start new " << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	std::cout << "               (Save)               " << std::endl;
+	std::cout << "   Saves all newly added records    " << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	std::cout << "               (Sort)               " << std::endl;
+	std::cout << "  Sorts all records in a ABC order  " << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	std::cout << "               (List)               " << std::endl;
+	std::cout << "          List all records          " << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+}
+
+void Application::InPutCommands(const char* filename)
+{
+	std::cout << "------------------------------------" << std::endl;
+	std::cout << "        Enter your command          " << std::endl;
+	std::cout << "------------------------------------" << std::endl;
+	std::string input;
+	std::cin >> input;
+	// todo convert input to lowercase
+
+	if (input == "clear")
+	{
+		db.Clear();
+		system("CLS");
+	}
+
+	if (input == "remove")
+	{
+		std::string removename;
+		std::cout << "------------------------------------" << std::endl;
+		std::cout << " Enter name to remove from reports: " << std::endl;
+		std::cout << "------------------------------------" << std::endl;
+		std::cin >> removename;
+
+		bool removedSuccess = true;
+		while (removedSuccess)
+			removedSuccess = db.Remove(db.GetByName(removename.c_str()));
+
+		system("CLS");
+		PrintPlayers();
+	}
+
+	if (input == "check")
+	{
+		system("CLS");
+		std::string findname;
+		std::cout << "------------------------------------" << std::endl;
+		std::cout << "    Enter name to pull up record:   " << std::endl;
+		std::cout << "------------------------------------" << std::endl;
+		std::cin >> findname;
+
+		Player* p = db.BinarySearch(findname.c_str());
+		if (p != nullptr)
+		{
+			system("CLS");
+			std::cout << p->name << " : " << p->score << " : Record Pulled" <<std::endl;
+		}
+		else
+		{			
+			std::cout << "No info was found under " << findname.c_str() << std::endl;
+		}
+	}
+
+	if (input == "save")
+	{
+		db.Save(filename);
+		system("CLS");
+	}
+
+	if (input == "add")
+	{
+		system("CLS");
+		int score = 0;
+		std::string name;
+
+		std::cout << "Enter a Name and then a Score: ";
+		std::cin >> name >> score;
+
+		Player* p = db.GetByName(name.c_str());
+		if (p != nullptr)
+		{
+			std::cout << "name already in Record" << std::endl;
+		}
+		else
+		{
+			db.Add(name.c_str(), score);
+			db.Sort();
+			db.Save(filename);
+		}
+		PrintPlayers();
+	}
+
+	if (input == "list")
+	{
+		system("CLS");
+		PrintPlayers();
+	}
+
+	if (input == "sort")
+	{
+		db.Sort();
+		system("CLS");
+		PrintPlayers();
+	}
+
+	if (input == "commands")
+	{
+		system("CLS");
+		PrintCommands();
+	}
+
+	if (input == "update")
+	{
+		system("CLS");
+		std::string update;
+		PrintPlayers();
+		std::cout << "Enter name of person you wish to edit: ";
+		std::cin >> update;
+	
+		Player* p = db.GetByName(update.c_str());
+		if (p != nullptr)
+		{
+			std::cout << p->name << " : " << p->score << std::endl;
+		}
+	
+		int scoreEdit = 0;
+		std::string nameEdit;
+		std::cout << "Enter enter new name and score of record you would like to edit ";
+		std::cin >> nameEdit >> scoreEdit;
+		system("CLS");
+	
+		db.Remove(db.GetByName(update.c_str()));
+		db.Add(nameEdit.c_str(), scoreEdit);
+		db.Sort();
+		db.Save(filename);
+		PrintPlayers();
+	}
+
+	if (input == "exit")
+	{
+		system("CLS");
+		m_shouldExit = true;
+	}
+
+
+	//else 
+	//{
+	//	system("CLS");
+	//	std::cout << "------------------------------------" << std::endl;
+	//	std::cout << "       Command Does not exist       " << std::endl;
+	//	std::cout << "------------------------------------" << std::endl;
+	//}
+
 }

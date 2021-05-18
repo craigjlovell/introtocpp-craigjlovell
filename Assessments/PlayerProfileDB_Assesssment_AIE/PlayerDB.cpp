@@ -118,7 +118,7 @@ Player* PlayerDB::BinarySearch(const char* name)
 
 
 
-void PlayerDB::Sort(const char* name)
+void PlayerDB::Sort()
 {
 	int result;
 	for (int names = 0; names < m_count - 1; ++names)
@@ -128,7 +128,7 @@ void PlayerDB::Sort(const char* name)
 			result = strcmp(m_record[j].name, m_record[j + 1].name);              
 			if (result > 0)
 			{
-				std::swap(m_record[j].name, m_record[j + 1].name);
+				std::swap(m_record[j], m_record[j + 1]);
 			}
 		}	 	
 	}

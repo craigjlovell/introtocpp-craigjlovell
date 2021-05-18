@@ -16,10 +16,13 @@ public:
 	void Run();
 
 	void PrintPlayers();
+	void PrintCommands();
+	void InPutCommands(const char* filename);
 
 protected:
 
 private:
 
 	PlayerDB db;
+	bool m_shouldExit = false;
 };
