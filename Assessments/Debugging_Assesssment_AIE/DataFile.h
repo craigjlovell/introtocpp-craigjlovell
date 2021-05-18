@@ -19,6 +19,8 @@ private:
 	int recordCount;
 	
 	Record* currentRecord = nullptr;
+
+	//creating a string named filename 
 	std::string filename;
 
 

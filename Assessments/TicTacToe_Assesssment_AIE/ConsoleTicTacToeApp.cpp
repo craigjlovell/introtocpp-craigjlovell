@@ -8,12 +8,12 @@
 
 ConsoleTicTacToe::ConsoleTicTacToe()
 {
-    game = new TicTacToeGame();
+    m_game = new TicTacToeGame();
 }
 
 ConsoleTicTacToe::~ConsoleTicTacToe()
 {
-    delete game;
+    delete m_game;
 }
 
 void ConsoleTicTacToe::DrawBoard()
@@ -30,11 +30,11 @@ void ConsoleTicTacToe::DrawBoard()
     std::cout << " " << "Tic Tac Tow" << std::endl;
     std::cout << std::endl;
     std::cout << "  " << "-------" << std::endl;
-    std::cout << "  " << "|" << game->DrawPlayer(0, 0, m_Location) << "|" << game->DrawPlayer(0, 1, m_Location) << "|" << game->DrawPlayer(0, 2, m_Location) << "|" << std::endl;
+    std::cout << "  " << "|" << m_game->DrawPlayer(0, 0, m_location) << "|" << m_game->DrawPlayer(0, 1, m_location) << "|" << m_game->DrawPlayer(0, 2, m_location) << "|" << std::endl;
     std::cout << "  " << "-------" << std::endl;
-    std::cout << "  " << "|" << game->DrawPlayer(1, 0, m_Location) << "|" << game->DrawPlayer(1, 1, m_Location) << "|" << game->DrawPlayer(1, 2, m_Location) << "|" << std::endl;
+    std::cout << "  " << "|" << m_game->DrawPlayer(1, 0, m_location) << "|" << m_game->DrawPlayer(1, 1, m_location) << "|" << m_game->DrawPlayer(1, 2, m_location) << "|" << std::endl;
     std::cout << "  " << "-------" << std::endl;
-    std::cout << "  " << "|" << game->DrawPlayer(2, 0, m_Location) << "|" << game->DrawPlayer(2, 1, m_Location) << "|" << game->DrawPlayer(2, 2, m_Location) << "|" << std::endl;
+    std::cout << "  " << "|" << m_game->DrawPlayer(2, 0, m_location) << "|" << m_game->DrawPlayer(2, 1, m_location) << "|" << m_game->DrawPlayer(2, 2, m_location) << "|" << std::endl;
     std::cout << "  " << "-------" << std::endl;
 }
 
@@ -71,19 +71,19 @@ int ConsoleTicTacToe::MovePlayer()
 
     if (key == UP)
     {
-        m_Location[0]--;
+        m_location[0]--;
     }
     if (key == DOWN)
     {
-        m_Location[0]++;
+        m_location[0]++;
     }
     if (key == LEFT)
     {
-        m_Location[1]--;
+        m_location[1]--;
     }
     if (key == RIGHT)
     {
-        m_Location[1]++;
+        m_location[1]++;
     }
     if (key == SPACE)
     {
@@ -97,20 +97,20 @@ int ConsoleTicTacToe::MovePlayer()
 void ConsoleTicTacToe::Borader()//change to  verb
 {
 
-    if (m_Location[0] < 0)  m_Location[0] = 0;
-    else if (m_Location[0] > 2) m_Location[0] = 2;
+    if (m_location[0] < 0)  m_location[0] = 0;
+    else if (m_location[0] > 2) m_location[0] = 2;
 
-    if (m_Location[1] < 0) m_Location[1] = 0;
-    else if (m_Location[1] > 2) m_Location[1] = 2;
+    if (m_location[1] < 0) m_location[1] = 0;
+    else if (m_location[1] > 2) m_location[1] = 2;
 
 }
 
 void ConsoleTicTacToe::PlacePlayer()
 {
-    if (game->SetBoard(m_Location[0], m_Location[1], m_player))
+    if (m_game->SetBoard(m_location[0], m_location[1], m_player))
     {
         m_player++;
-        draw++;
+        tilesPlaced++;
         if (m_player > 2)
         {
             m_player = 1;
@@ -129,11 +129,11 @@ void ConsoleTicTacToe::RunMenuState()
 
     if (options == 1)
     {
-        m_GameState = GameState::GAME;
+        m_gameState = GameState::GAME;
     }
     else if (options == 2)
     {
-        m_ShouldQuit = true;
+        m_shouldQuit = true;
     }
 }
 
@@ -146,19 +146,19 @@ void ConsoleTicTacToe::RunGameState()
 
 bool ConsoleTicTacToe::CheckWinState()
 {
-    if (game->CheckWinner(1))
+    if (m_game->CheckWinner(1))
     {
-        m_GameState = GameState::WIN;
+        m_gameState = GameState::WIN;
         return true;
     }
-    else if (game->CheckWinner(2))
+    else if (m_game->CheckWinner(2))
     {
-        m_GameState = GameState::WIN;
+        m_gameState = GameState::WIN;
         return true;
     }
-    else if (draw == 9)
+    else if (tilesPlaced == 9)
     {
-        m_GameState = GameState::WIN;
+        m_gameState = GameState::WIN;
         return true;
     }
     return false;
@@ -169,15 +169,15 @@ void ConsoleTicTacToe::RunWinState()
     
     DrawBoard();
     std::cout << "WINSCREEN" << std::endl;
-    if (game->CheckWinner(1))
+    if (m_game->CheckWinner(1))
     {
         std::cout << "Player X wins!" << std::endl;
     }
-    else if (game->CheckWinner(2))
+    else if (m_game->CheckWinner(2))
     {
         std::cout << "Player O wins!" << std::endl;
     }
-    else if (draw == 9)
+    else if (tilesPlaced == 9)
     {
         std::cout << "Draw" << std::endl;
     }
@@ -188,25 +188,25 @@ void ConsoleTicTacToe::RunWinState()
 
     if (key == ENTER)
     {
-        game->Reset();
-        m_GameState = GameState::MENU;
+        m_game->Reset();
+        m_gameState = GameState::MENU;
     }
 
 }
 
 void ConsoleTicTacToe::Run()
 {
-    while (!m_ShouldQuit)
+    while (!m_shouldQuit)
     {
 
         Sleep(100);
         system("cls");
 
-        if (m_GameState == GameState::MENU)
+        if (m_gameState == GameState::MENU)
             RunMenuState();
-        else if (m_GameState == GameState::GAME)
+        else if (m_gameState == GameState::GAME)
             RunGameState();
-        else if (m_GameState == GameState::WIN)
+        else if (m_gameState == GameState::WIN)
             RunWinState();
     }
 

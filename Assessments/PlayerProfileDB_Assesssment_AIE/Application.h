@@ -15,6 +15,8 @@ public:
 
 	void Run();
 
+	void PrintPlayers();
+
 protected:
 
 private:

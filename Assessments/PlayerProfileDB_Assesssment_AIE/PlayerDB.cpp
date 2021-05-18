@@ -12,7 +12,8 @@ PlayerDB::PlayerDB()
 
 PlayerDB::~PlayerDB()
 {
-
+	delete[] m_record;
+	m_record = nullptr;
 }
 
 void PlayerDB::Add(const char* name, int score)
@@ -32,13 +33,7 @@ void PlayerDB::Add(const char* name, int score)
 	m_record = temp;
 }
 
-void PlayerDB::DisplayAllPlayers()
-{
-	for (int i = 0; i < m_count; i++)
-	{
-		std::cout << m_record[i].name << ": " << m_record[i].score << std::endl;
-	}
-}
+
 
 bool PlayerDB::Remove(Player* player)
 {
@@ -93,7 +88,6 @@ Player* PlayerDB::GetByName(const char* name)
 
 Player* PlayerDB::BinarySearch(const char* name)
 {
-	// TODO: write your code here
 	int left = 0;
 	int right = m_count - 1;
 	int middle = 0;
@@ -122,15 +116,7 @@ Player* PlayerDB::BinarySearch(const char* name)
 	return nullptr;
 }
 
-void PlayerDB::GetByScore()
-{
 
-}
-
-void PlayerDB::UpdatePlayer(Player)
-{
-
-}
 
 void PlayerDB::Sort(const char* name)
 {
@@ -148,9 +134,9 @@ void PlayerDB::Sort(const char* name)
 	}
 }
 
-void PlayerDB::Count()
+int PlayerDB::Count()
 {
-
+	return m_count;
 }
 
 void PlayerDB::Save(const char* filename)
@@ -178,4 +164,12 @@ void PlayerDB::Load(const char* filename)
 		file.read((char*)m_record, sizeof(Player) * m_count);
 	}
 	file.close();
+}
+
+Player* PlayerDB::GetAt(int index)
+{
+	if (index < 0 || index >= m_count)
+		return nullptr;
+
+	return &m_record[index];
 }

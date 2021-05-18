@@ -11,14 +11,13 @@ public:
 
 	void Add(const char* name, int score);
 	bool Remove(Player* player);
-	void DisplayAllPlayers();
+	
 	void Clear();
+	Player* GetAt(int index);
 	Player* GetByName(const char* name);
-	void GetByScore();
 	Player* BinarySearch(const char* name);
-	void UpdatePlayer(Player);
 	void Sort(const char* name);
-	void Count();
+	int Count();
 	void Save(const char* filename);
 	void Load(const char* filename);
 

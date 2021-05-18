@@ -12,7 +12,7 @@ class ConsoleTicTacToe
 {
 public:
 
-	int draw = 0;
+	int tilesPlaced = 0;
 	
 	ConsoleTicTacToe();
 	~ConsoleTicTacToe();
@@ -39,14 +39,14 @@ public:
 
 protected:
 
-	bool m_ShouldQuit = false;
-	GameState m_GameState = GameState::MENU;
+	bool m_shouldQuit = false;
+	GameState m_gameState = GameState::MENU;
 
 private:
 
-	TicTacToeGame* game = nullptr;
+	TicTacToeGame* m_game = nullptr;
 
-	int m_Location[2] = { 0, 0 };
+	int m_location[2] = { 0, 0 };
 	int m_player = 1;
 	
 };

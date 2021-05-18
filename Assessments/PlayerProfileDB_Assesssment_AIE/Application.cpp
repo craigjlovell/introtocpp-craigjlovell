@@ -16,7 +16,8 @@ void Application::Run()
 {
 	const char* filename = "database.dat";
 	db.Load(filename);
-	db.DisplayAllPlayers();
+	PrintPlayers();
+
 	bool command = true;
 	while (command)
 	{
@@ -41,7 +42,7 @@ void Application::Run()
 				removedSuccess = db.Remove(db.GetByName(removename.c_str()));
 
 			system("CLS");
-			db.DisplayAllPlayers();
+			PrintPlayers();
 		}
 
 		if (input == "check")
@@ -94,20 +95,20 @@ void Application::Run()
 				db.Add(name.c_str(), score);
 			}
 
-			db.DisplayAllPlayers();
+			PrintPlayers();
 		}
 
 		if (input == "list")
 		{
 			system("CLS");
-			db.DisplayAllPlayers();
+			PrintPlayers();
 		}
 
 		if (input == "sort")
 		{
 			db.Sort(Player().name);
 			system("CLS");
-			db.DisplayAllPlayers();
+			PrintPlayers();
 		}
 
 		if (input == "exit")
@@ -126,9 +127,17 @@ void Application::Run()
 	//	std::cout << p1->name << "\t\t" << p1->score << std::endl;
 	//
 
-	db.DisplayAllPlayers(); 
+	PrintPlayers();
 
 
 	db.Save(filename); // Step 1
 }
 
+void Application::PrintPlayers()
+{
+	for (int i = 0; i < db.Count(); i++)
+	{
+		Player* player = db.GetAt(i);
+		std::cout << player->name << ": " << player->score << std::endl;
+	}
+}

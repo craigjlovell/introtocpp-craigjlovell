@@ -51,6 +51,8 @@ int main(int argc, char* argv[])
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
 
+
+        //below is code to chnage the record to the next or previous one and it has been fixed to stop it from crashing when it reaches the final record 
         if (IsKeyPressed(KEY_LEFT))
         {
             currentRecordIdx--;

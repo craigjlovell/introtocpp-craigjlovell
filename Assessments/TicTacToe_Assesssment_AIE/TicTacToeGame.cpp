@@ -13,14 +13,14 @@ TicTacToeGame::~TicTacToeGame()
 
 int TicTacToeGame::DrawBoard(int x, int y)
 {
-	return board[x][y];
+	return m_board[x][y];
 }
 
 bool TicTacToeGame::SetBoard(int x, int y, int player)
 {
 	if (IsValidMove(x, y))
 	{
-		board[x][y] = player;
+		m_board[x][y] = player;
 		return true;
 	}
 
@@ -29,18 +29,18 @@ bool TicTacToeGame::SetBoard(int x, int y, int player)
 
 bool TicTacToeGame::IsValidMove(int x, int y)
 {
-	return board[x][y] == 0;
+	return m_board[x][y] == 0;
 }
 
 char TicTacToeGame::DrawPlayer(int row, int col, int location[2])
 {
 	char square = ' ';
 
-	if (location[0] == row && location[1] == col && board[row][col] == 0)
+	if (location[0] == row && location[1] == col && m_board[row][col] == 0)
 		return '#';
 
 
-	switch (board[row][col])
+	switch (m_board[row][col])
 	{
 	case 1:
 		square = 'x';
@@ -59,7 +59,7 @@ void TicTacToeGame::Reset()
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			board[i][j] = 0;
+			m_board[i][j] = 0;
 		}
 	}
 }
@@ -72,7 +72,7 @@ bool TicTacToeGame::CheckWinner(int player)
 		int num = 0;
 		for (int c = 0; c < 3; c++)
 		{
-			if (board[r][c] == player)
+			if (m_board[r][c] == player)
 			{
 				num++;
 			}
@@ -88,7 +88,7 @@ bool TicTacToeGame::CheckWinner(int player)
 		int num = 0;
 		for (int c = 0; c < 3; c++)
 		{
-			if (board[c][r] == player)
+			if (m_board[c][r] == player)
 			{
 				num++;
 			}
@@ -102,7 +102,7 @@ bool TicTacToeGame::CheckWinner(int player)
 	int num = 0;
 	for (int rc = 0; rc < 3; rc++) //left to right
 	{
-		if (board[rc][rc] == player)
+		if (m_board[rc][rc] == player)
 		{
 			num++;
 		}
@@ -115,7 +115,7 @@ bool TicTacToeGame::CheckWinner(int player)
 	num = 0;
 	for (int rc = 0; rc < 3; rc++) // right to left
 	{
-		if (board[rc][2 - rc] == player)
+		if (m_board[rc][2 - rc] == player)
 		{
 			num++;
 		}

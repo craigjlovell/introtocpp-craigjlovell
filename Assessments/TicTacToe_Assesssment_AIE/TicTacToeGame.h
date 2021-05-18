@@ -18,7 +18,7 @@ public:
 
 protected:
 private:
-	int board[3][3] = { // x = 1 o = 2
+	int m_board[3][3] = { // x = 1 o = 2
 		{0, 0, 0},
 		{0, 0, 0},
 		{0, 0, 0} };
