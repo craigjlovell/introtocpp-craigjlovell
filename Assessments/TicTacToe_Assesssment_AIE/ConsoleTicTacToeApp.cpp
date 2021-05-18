@@ -172,14 +172,17 @@ void ConsoleTicTacToe::RunWinState()
     if (m_game->CheckWinner(1))
     {
         std::cout << "Player X wins!" << std::endl;
+        tilesPlaced = 0;
     }
     else if (m_game->CheckWinner(2))
     {
         std::cout << "Player O wins!" << std::endl;
+        tilesPlaced = 0;
     }
     else if (tilesPlaced == 9)
     {
         std::cout << "Draw" << std::endl;
+        tilesPlaced = 0;
     }
     
 
