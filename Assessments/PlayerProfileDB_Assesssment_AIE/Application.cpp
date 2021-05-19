@@ -33,7 +33,7 @@ void Application::PrintPlayers()
 	for (int i = 0; i < db.Count(); i++)
 	{
 		Player* player = db.GetAt(i);
-		std::cout << player->name << ": " << player->score << std::endl;
+		std::cout << player->name << " : " << player->score << std::endl;
 	}
 }
 
