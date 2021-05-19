@@ -15,6 +15,7 @@ public:
 
 	void Run();
 
+	void StringToLower(std::string& lower);
 	void PrintPlayers();
 	void PrintCommands();
 	void InPutCommands(const char* filename);
